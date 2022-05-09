@@ -14,4 +14,31 @@ class DetailCommandes(db.Model):
         self.price = price
         self.commande_id = commande_id
         self.produit_id = produit_id
-    
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+        return self
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+        return self
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'quantity': self.quantity,
+            'price': self.price,
+            #'commande': self.commandes.serialize() if self.commandes else None,
+            'produit': self.produit.serialize() if self.produit else None,
+
+            'total': self.quantity * self.price
+        }
+
+
+
+def add_detail_commande(detail):
+    db.session.add(detail)
+    db.session.commit()
+    return detail

@@ -9,9 +9,20 @@ class Roles(db.Model):
     def __init__(self, name):
         self.name = name
 
+    def serealize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+        }
 
 def create_role(name):
     role = Roles(name)
+    #select role by name
+    #role = Roles.query.filter_by(name=name).first()
+    #select role by id
+   # role = Roles.query.filter_by(id=3).first()
+
+
     db.session.add(role)
     db.session.commit()
-    return role.id
+    return role.serealize()

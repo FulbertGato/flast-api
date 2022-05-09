@@ -1,7 +1,11 @@
+
 from unicodedata import name
+
+from sqlalchemy import false
 from api.models import Roles
+
 from api.services import generator
-from api.models import Users, Gestionnaires
+from api.models import Users, Gestionnaires, Clients
 
 
 def login(login,password):
@@ -15,7 +19,7 @@ def get_gestionnaire_by_matricule(matricule):
     gestionnaire = Gestionnaires.find_gestionnaire_by_matricule(matricule)
     if gestionnaire:
         return gestionnaire.serialize()
-    return  
+    return  False
 
 
 #add gestionnaire
@@ -62,5 +66,39 @@ def find_gestionnaire_by_id(id):
     return False
 
 def create_role():
-    role = Roles.create_role(name='gestionnaire')
-    return role.serialize()
+    role = Roles.create_role(name='client')
+    print ("haha")
+    return role
+
+def add_client(data):
+    #matricule = generator.generate_product_code('user')
+    email= data['email']
+    password = data['password']
+    first_name = data['first_name']
+    last_name = data['last_name']
+    phone = data['phone']
+    role_id = 2
+
+    client = Clients.Clients(email=email, password=password, first_name=first_name, last_name=last_name,phone=phone, role_id=role_id)
+    client = Clients.add_client(client)
+    return client.serealize()
+
+
+def get_all_clients():
+    clients = Clients.get_all_clients()
+    if clients:
+        
+        return clients
+    return False
+
+def delete_client(id):
+    client = Clients.find_client_by_id(id)
+    if client:
+        Clients.delete_client(client)
+        return True
+    return False
+
+def find_client_by_id(id):
+    client = Clients.find_client_by_id(id)
+    if client:
+        return client.serealize()

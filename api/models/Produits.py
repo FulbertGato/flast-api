@@ -23,3 +23,6 @@ class Produits(db.Model):
         self.description = description
         self.status = status
 
+
+def find_by_code(code):
+    return Produits.query.filter_by(code=code).first()

@@ -257,9 +257,9 @@ def upload_file():
         
         try:
                 # check if the post request has the file part
-            if 'file' not in request.files.keys():
+            if 'file'  in request.files:
                 return jsonify({'status': 'not files'}), 401
-            file = request.files.get('files')
+            file = request.files.get('file')
             # if user does not select file, browser also
             # submit a empty part without filename
             if file.filename == '':
@@ -273,6 +273,7 @@ def upload_file():
                 name = generate_product_code('image')
                 fullname=name+'.'+extension
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], fullname))
+                print("je suis arriver")
                 return jsonify({'fullname':fullname}), 200
         except Exception as e:
             print(e)

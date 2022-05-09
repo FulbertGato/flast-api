@@ -13,17 +13,19 @@ class Menus (Produits):
     burger_id = db.Column(db.Integer, db.ForeignKey('burgers.id'), nullable=False)
     burger = db.relationship('Burgers', backref='menus',foreign_keys=[burger_id])
     complements = db.relationship('Complements', back_populates='menus', secondary='menus_complements')
+    image=db.Column(db.String(100), nullable=True)
 
 
     __mapper_args__ = {
         'polymorphic_identity': 'menus'
     }
 
-    def __init__(self, name, code, price, description, status, cooking_time, burger_id, complements):
+    def __init__(self, name, code, price, description, status, cooking_time, burger_id, complements, image):
         super().__init__(name, code, price, description, status)
         self.cooking_time = cooking_time
         self.burger_id = burger_id
         self.complements = complements
+        self.image = image
 
     def serialize(self):
         return {
@@ -36,7 +38,8 @@ class Menus (Produits):
             'cookingTime': self.cooking_time,
             'burger': self.burger.name,
             'burgerObject': self.burger.serialize(),
-            'complements': [complement.serialize() for complement in self.complements]
+            'complements': [complement.serialize() for complement in self.complements],
+            'image': self.image
         }
 
 

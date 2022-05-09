@@ -52,7 +52,6 @@ def find_gestionnaire_by_id(id):
     return Gestionnaires.query.filter_by(id=id).first()
 
 
-def edit_gestionnaire(gestionnaire):
-    
+def edit_gestionnaire(gestionnaire): 
     db.session.commit()
     return gestionnaire

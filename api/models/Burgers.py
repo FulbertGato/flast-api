@@ -5,6 +5,7 @@ class Burgers(Produits):
     __tablename__ = 'burgers'
     id = db.Column(db.Integer, db.ForeignKey('produits.id'), primary_key=True)   
     cooking_time = db.Column(db.String(20), nullable=False)
+    image = db.Column(db.String(255), nullable=True)
     
     
 
@@ -12,9 +13,10 @@ class Burgers(Produits):
         'polymorphic_identity': 'burgers'
     }
 
-    def __init__(self, name, code, price, description, status, cooking_time):
+    def __init__(self, name, code, price, description, status, cooking_time, image):
         super().__init__(name, code, price, description, status)
-        self.cooking_time = cooking_time
+        self.cooking_time = cooking_time,
+        self.image = image
     
     def serialize(self):
         return {
@@ -24,7 +26,8 @@ class Burgers(Produits):
             'price': self.price,
             'description': self.description,
             'status': self.status,
-            'cookingTime': self.cooking_time
+            'cookingTime': self.cooking_time,
+            'image': self.image
         }
 
 def get_all():

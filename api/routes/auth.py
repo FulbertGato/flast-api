@@ -49,3 +49,43 @@ def edit_gestionnaire():
     except Exception as e:
         print (e)
     return jsonify({"error": "Bad request"}), 400
+
+
+#add client
+@app.route('/api/auth/client', methods=['POST'])
+def add_client():
+    try :
+        data = request.get_json()
+        return AuthController.add_client(data)
+    except Exception as e:
+        print (e)
+#create role 
+@app.route('/api/auth/role', methods=['POST'])
+def add_role():
+    try :
+        data = request.get_json()
+        return AuthController.add_role(data)
+    except Exception as e:
+        print (e)
+
+    return jsonify({"error": "Bad request"}), 400
+
+
+#get all clients 
+@app.route('/api/auth/clients/<string:token>', methods=['GET'])
+def get_all_clients(token):
+    try :
+        return AuthController.get_all_clients(token)
+    except Exception as e:
+        print (e)
+    return jsonify({"error": "Bad request"}), 400
+
+
+#delete client
+@app.route('/api/auth/clients/<string:token>/<int:id>', methods=['DELETE'])
+def delete_client(token, id):
+    try :
+        return AuthController.delete_client(token, id)
+    except Exception as e:
+        print (e)
+
