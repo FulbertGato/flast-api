@@ -34,12 +34,12 @@ def add_gestionnaire(data):
         if matricule:
             #select gestionnaire who has this matricule
             gestionnaire = AuthService.get_gestionnaire_by_matricule(matricule)
-            if gestionnaire:
+            if  gestionnaire:
                 gestionnaireCreate = AuthService.add_gestionnaire(data['gestionnaire'])
                 if gestionnaireCreate:
                     return jsonify(gestionnaireCreate), 200
                 return jsonify({'status': 'error', 'message': 'Invalid Credentials'}), 401
-            return jsonify({"error": "Acces non autorisé"}), 401
+            return jsonify({"error": "Acces non autorisé no"}), 401
     except Exception as e:
         print(e)
     return jsonify({"error": "Acces non autorisé"}), 401

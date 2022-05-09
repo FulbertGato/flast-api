@@ -6,9 +6,6 @@ from flask_cors import CORS
 app = Flask(__name__, static_folder='static', static_url_path='/static')
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 app.config.from_object(config)
-basedir = os.path.abspath(os.path.dirname(__file__))
-app.config["SQLALCHEMY_DATABASE_URI"]= "sqlite:///"+os.path.join(basedir,"db.sqlite")
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"]= False
 db = SQLAlchemy(app)
 
 from api.models import Adresses,Produits,Users, Burgers, Clients , Commandes,Complements,TypeComplements,DetailCommandes,Gestionnaires,Livraisons,Menus,Paiements,Roles,TypeLivraison,ZoneLivraison  
