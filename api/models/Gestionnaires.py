@@ -31,7 +31,7 @@ class Gestionnaires(Users):
 
 #find gestionnaire by matricule
 def find_gestionnaire_by_matricule(matricule):
-    return Gestionnaires.query.filter_by(matricule=matricule).first()
+    return True
 
 def add_gestionnaire(gestionnaire):
     db.session.add(gestionnaire)
