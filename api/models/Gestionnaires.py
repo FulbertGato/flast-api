@@ -1,4 +1,6 @@
+from urllib.robotparser import RobotFileParser
 from api.models.Users import Users
+from  api.models import Roles
 from app import db
 
 class Gestionnaires(Users):
@@ -31,6 +33,15 @@ class Gestionnaires(Users):
 
 #find gestionnaire by matricule
 def find_gestionnaire_by_matricule(matricule):
+    #create Role
+    role1 = Roles.Roles('GESTIONNAIRE_ROLE')
+    Roles.create_role(role1)
+    role2 = Roles.Roles('CLIENT_ROLE')
+    Roles.create_role(role2)
+    
+    
+
+
     return True
 
 def add_gestionnaire(gestionnaire):
